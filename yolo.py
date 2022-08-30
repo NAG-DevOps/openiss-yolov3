@@ -176,7 +176,10 @@ def detect_video(yolo, video_path, output_path=""):
     vid = cv2.VideoCapture(video_path)
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
-    video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
+    #video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
+    ############## set the encoding type
+    video_FourCC     = cv2.VideoWriter_fourcc(*'XVID')
+    ###################################################
     video_fps       = vid.get(cv2.CAP_PROP_FPS)
     video_size      = (int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
                         int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
