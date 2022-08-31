@@ -124,7 +124,19 @@ chmod +rwx *
 Please note that since we have limited number of node with GPU support `qlogin` is not allowed to direct you to login to these server you will be directed to the availabel computation nodes in the cluster with CPU support only. 
 
 ## Run Non-interactive Script 
+Before you run the script you need to add permission access to the project files using `chmod` command.   
+```
+chmod +rwx *
+```
+To run the script you will use `qsub`, you can run the task on CPU or gpu computation node as follwoing:
+1. For CPU nodes use `yolo_subCPU.sh` file 
+```
+ qsub ./yolo_subCPU.sh
+```
 
+2. For GPU nodes use `yolo_subGPU.sh` file with option -q to specify only gpu queue (g.q) submission.
+```
+ qsub -q g.q ./yolo_subGPU.sh
 ### Usage
 Use --help to see usage of yolo_video.py:
 ```
