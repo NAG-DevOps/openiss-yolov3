@@ -136,9 +136,10 @@ To run the script you will use `qsub`, you can run the task on CPU or gpu comput
 
 2. For GPU nodes use `yolo_subGPU.sh` file with option -q to specify only gpu queue (g.q) submission.
 ```
- qsub -q g.q ./yolo_subGPU.sh
+qsub -q g.q ./yolo_subGPU.sh
 ### Usage
 Use --help to see usage of yolo_video.py:
+```
 ```
 usage: yolo_video.py [-h] [--model MODEL] [--anchors ANCHORS]
                      [--classes CLASSES] [--gpu_num GPU_NUM] [--image]
