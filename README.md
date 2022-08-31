@@ -15,6 +15,69 @@ master's thesis:
 * [Haotao Lai](https://github.com/laihaotao), [*An OpenISS Framework Specialization for Person Re-identification*](https://spectrum.library.concordia.ca/985788/), Master's thesis, August 2019, Concordia University, Montreal
 
 ---
+## Environment 
+ Images and videos can be from any source, but we provided you with a sample of video and images in folders video and image. 
+ This demo can be run in an interactive and non-interactive way for both image and video default is non-interactive. You can enable interactive by passing --interactive parameters. 
+ 1) For image you provide the server with image path/name and return the classes of images.
+ 2) For video you will provide video path/name in the script argument. The output for interactive mode is a live video that dispaly classified object in each video frame. The new classified video will be stored in your video folder for both interactive and non-interactive modes.  
+
+
+## Speed Login Configuration 
+1. As an interactive option is supported that show live video, you will need to enable ssh login with -X support. Please check this [link](https://www.concordia.ca/ginacody/aits/support/faq/xserver.html) to do that.
+2. If you didn't know how to login to speed and prepare the working environment please check the manual in the follwing [link](https://github.com/NAG-DevOps/speed-hpc/blob/master/doc/speed-manual.pdf) section 2.
+
+After you logged in to speed change your working directory to `/speed-scratch/$USER` diectory.
+```
+cd /speed-scratch/$USER/
+```
+
+## Development Environment Preperation. 
+The pre-requisites to prepare the virtual development environment using anaconda is explained in [speed manual](https://github.com/NAG-DevOps/speed-hpc/blob/master/doc/speed-manual.pdf) section 3, please check that for more inforamtion.
+1. Make sure you are in speed-scratch directory. Then Download Yolo project from [Github website](https://github.com/tariqghd/openiss-yolov3) to your speed-scratch proper diectory. 
+```
+cd /speed-scratch/$USER/
+git https://github.com/tariqghd/openiss-yolov3.git
+```
+2. Starting by loading anaconda module 
+```
+module load anaconda/default
+```
+3.  Switch to the project directoy. Create anaconda virtual environment, and configure development librires. The name of the environment can by any name here as an example named YOLO. Activate the conda environment YOLOInteractive.
+<!-- 
+conda configuration will be from the .yml file.
+conda env create -f environment.yml -p /speed-scratch/$USER/YOLO 
+conda deactivate
+conda env remove -p /speed-scratch/$USER/YOLO
+-->
+
+```
+cd /speed-scratch/$USER/openiss-yolov3
+conda create -p /speed-scratch/$USER/YOLO
+conda activate /speed-scratch/$USER/YOLO
+```
+4. Install all required librires you need and upgrade pip to install opencv-contrib-python library 
+
+```
+conda install python=3.5
+conda install Keras=2.1.5
+conda install Pillow
+conda install matplotlib
+conda install -c menpo opencv
+pip install --upgrade pip 
+pip install opencv-contrib-python
+```
+
+5. Validate conda environemnt and installed packeges using following commands. Make sure the version of python and keras are same as requred.
+```
+conda info --env
+conda list
+```
+if you need to delete the created virtual environment 
+```
+conda deactivate
+conda env remove -p /speed-scratch/$USER/YOLO
+```
+
 
 ## Quick Start
 
@@ -27,6 +90,15 @@ wget https://pjreddie.com/media/files/yolov3.weights
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 python yolo_video.py [OPTIONS...] --image, for image detection mode, OR
 python yolo_video.py [video_path] [output_path (optional)]
+```
+
+For image run follwing command and the program will ask you about the image path and name:
+```
+python yolo_video.py --model model_data/yolo.h5 --classes model_data/coco_classes.txt --image 
+```
+For video 
+```
+python yolo_video.py --input video/v1.avi --output vido/001.avi
 ```
 
 For Tiny YOLOv3, just do in a similar way, just specify model path and anchor path with `--model model_file` and `--anchors anchor_file`.
@@ -51,6 +123,7 @@ optional arguments:
                      model_data/coco_classes.txt
   --gpu_num GPU_NUM  Number of GPU to use, default 1
   --image            Image detection mode, will ignore all positional arguments
+  --interactive      To show live video classification 
 ```
 ---
 
