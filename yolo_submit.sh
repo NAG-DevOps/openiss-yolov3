@@ -12,8 +12,11 @@
 # Request GPU
 #  #$ -l gpu=2
 
-# Request CPU with maximum memoy size = 40GB
-# #$ -l h_vmem=40G
+# Request CPU with maximum memoy size = 80GB
+# #$ -l h_vmem=80G
+
+# Request CPU slots 
+# #$ -pe smp 16
 
 #sleep 30
 
