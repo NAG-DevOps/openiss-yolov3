@@ -96,9 +96,13 @@ For image run follwing command and the program will ask you about the image path
 ```
 python yolo_video.py --model model_data/yolo.h5 --classes model_data/coco_classes.txt --image 
 ```
-For video 
+For video non-interactive default 
 ```
-python yolo_video.py --input video/v1.avi --output vido/001.avi
+python yolo_video.py --input video/v1.avi --output vido/001.avi 
+```
+For video interactive  
+```
+python yolo_video.py --input video/v1.avi --output vido/001.avi  --interactive
 ```
 
 For Tiny YOLOv3, just do in a similar way, just specify model path and anchor path with `--model model_file` and `--anchors anchor_file`.
@@ -111,8 +115,8 @@ File `yolo_submit.sh` is the speed script to run video example to run it you fol
 
 ```
 qlogin 
-cd /speed-scratch/$USER/SpeedYolo
-conda activate /speed-scratch/$USER/YOLOInteractive
+cd /speed-scratch/$USER/openiss-yolov3
+conda activate /speed-scratch/$USER/YOLO
 ```
 4. Before you run the script you need to add permission access to the project files, then start run the script `./yolo_submit.sh`    
 ```

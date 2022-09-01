@@ -1,7 +1,7 @@
 #!/encs/bin/tcsh
 ## since it is qlogin no need to configure cluster setting because qlogin choosed the proper computational node  
 # Give job a name
-# #$ -N yolo
+#$ -N yoloInteractive
 
 # Set output directory to current
 # #$ -cwd
@@ -21,12 +21,12 @@
 # # -o name.qlog
 
 
-conda activate /speed-scratch/$USER/YOLOInteractive
+conda activate /speed-scratch/$USER/YOLO
 
 # Image example 
 #python yolo_video.py --model model_data/yolo.h5 --classes model_data/coco_classes.txt --image 
 
 # Video example 
-python yolo_video.py --input video/v1.avi --output video/002.avi
+python yolo_video.py --input video/v1.avi --output video/002.avi --interactive
 
 conda deactivate
