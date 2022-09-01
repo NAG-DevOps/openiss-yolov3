@@ -27,6 +27,7 @@ class YOLO(object):
         "iou" : 0.45,
         "model_image_size" : (416, 416),
         "gpu_num" : 1,
+        "interactive":"",
     }
 
     @classmethod
@@ -171,7 +172,7 @@ class YOLO(object):
     def close_session(self):
         self.sess.close()
 
-def detect_video(yolo, video_path, output_path="", interactive_mode=""):
+def detect_video(yolo, video_path, output_path=""):
     import cv2
     vid = cv2.VideoCapture(video_path)
     if not vid.isOpened():
@@ -185,7 +186,7 @@ def detect_video(yolo, video_path, output_path="", interactive_mode=""):
                         int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     isOutput = True if output_path != "" else False
 
-    isInteractive = True if interactive_mode != "" else False
+    isInteractive = True if yolo.interactive != "" else False
 
     if isOutput:
         print("!!! TYPE:", type(output_path), type(video_FourCC), type(video_fps), type(video_size))

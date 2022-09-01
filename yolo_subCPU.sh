@@ -15,6 +15,9 @@
 # Request CPU with maximum memoy size = 80GB
 #$ -l h_vmem=80G
 
+# Request CPU slots 
+#$ -pe smp 16
+
 #sleep 30
 
 # Specify the output file name in our case we commntes that system will genreate file with the same name of the job
