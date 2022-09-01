@@ -36,7 +36,7 @@ The pre-requisites to prepare the virtual development environment using anaconda
 1. Make sure you are in speed-scratch directory. Then Download Yolo project from [Github website](https://github.com/tariqghd/openiss-yolov3) to your speed-scratch proper diectory. 
 ```
 cd /speed-scratch/$USER/
-git https://github.com/tariqghd/openiss-yolov3.git
+git clone https://github.com/tariqghd/openiss-yolov3.git
 ```
 2. Starting by loading anaconda module 
 ```

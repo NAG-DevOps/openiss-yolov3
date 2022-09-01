@@ -62,8 +62,8 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        "--interavtive", nargs='?', type=str,required=False, default="", 
-        help = "set operation mode interavtive default noninteractive"
+        "--interactive", nargs='?', type=str,required=False, default="", 
+        help = "set operation mode interactive default noninteractive"
     )
 
     FLAGS = parser.parse_args()
