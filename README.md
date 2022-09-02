@@ -21,63 +21,9 @@ master's thesis:
  1) For image you provide the server with image path/name and return the classes of images.
  2) For video you will provide video path/name in the script argument. The output for interactive mode is a live video that dispaly classified object in each video frame. The new classified video will be stored in your video folder for both interactive and non-interactive modes.  
 
+The video sample is from youtube channel [Watched Walker](https://www.youtube.com/watch?v=DRNivy7rkTg).
 
-## Speed Login Configuration 
-1. As an interactive option is supported that show live video, you will need to enable ssh login with -X support. Please check this [link](https://www.concordia.ca/ginacody/aits/support/faq/xserver.html) to do that.
-2. If you didn't know how to login to speed and prepare the working environment please check the manual in the follwing [link](https://github.com/NAG-DevOps/speed-hpc/blob/master/doc/speed-manual.pdf) section 2.
-
-After you logged in to speed change your working directory to `/speed-scratch/$USER` diectory.
-```
-cd /speed-scratch/$USER/
-```
-
-## Speed Setup and Development Environment Preperation. 
-The pre-requisites to prepare the virtual development environment using anaconda is explained in [speed manual](https://github.com/NAG-DevOps/speed-hpc/blob/master/doc/speed-manual.pdf) section 3, please check that for more inforamtion.
-1. Make sure you are in speed-scratch directory. Then Download Yolo project from [Github website](https://github.com/tariqghd/openiss-yolov3) to your speed-scratch proper diectory. 
-```
-cd /speed-scratch/$USER/
-git clone https://github.com/tariqghd/openiss-yolov3.git
-```
-2. Starting by loading anaconda module 
-```
-module load anaconda/default
-```
-3. Switch to the project directoy. Create anaconda virtual environment, and configure development librires. The name of the environment can by any name here as an example named YOLO. Activate the conda environment YOLOInteractive.
-<!-- 
-conda configuration will be from the .yml file.
-conda env create -f environment.yml -p /speed-scratch/$USER/YOLO 
-conda deactivate
-conda env remove -p /speed-scratch/$USER/YOLO
--->
-
-```
-cd /speed-scratch/$USER/openiss-yolov3
-conda create -p /speed-scratch/$USER/YOLO
-conda activate /speed-scratch/$USER/YOLO
-```
-4. Install all required librires you need and upgrade pip to install opencv-contrib-python library 
-
-```
-conda install python=3.5
-conda install Keras=2.1.5
-conda install Pillow
-conda install matplotlib
-conda install -c menpo opencv
-pip install --upgrade pip 
-pip install opencv-contrib-python
-```
-
-5. Validate conda environemnt and installed packeges using following commands. Make sure the version of python and keras are same as requred.
-```
-conda info --env
-conda list
-```
-if you need to delete the created virtual environment 
-```
-conda deactivate
-conda env remove -p /speed-scratch/$USER/YOLO
-```
-
+Images are from [YAD2K](https://github.com/allanzelener/YAD2K/tree/master/images) repostry project. 
 
 ## Quick Start
 
@@ -107,43 +53,9 @@ python yolo_video.py --input video/v1.avi --output vido/001.avi  --interactive
 
 For Tiny YOLOv3, just do in a similar way, just specify model path and anchor path with `--model model_file` and `--anchors anchor_file`.
 
-## Run Interactive Script 
-File `yolo_submit.sh` is the speed script to run video example to run it you follow these steps:
-1. Run interactive job we need to keep `ssh -X` option enabled and `xming` server in your windows  working. 
-2. The `qsub` is not the proper command since we have to keep direct ssh connection to the computational node, so `qlogin` will be used. 
-3. Enter `qlogin` in the `speed-submit`. The `qlogin` will find an approriate  computational node then it will allow you to have direct `ssh -X' login to that node. Make sure you are in the right directory and activate conda environment again.
-
-```
-qlogin 
-cd /speed-scratch/$USER/openiss-yolov3
-conda activate /speed-scratch/$USER/YOLO
-```
-4. Before you run the script you need to add permission access to the project files, then start run the script `./yolo_submit.sh`    
-```
-chmod +rwx *
-./yolo_submit.sh
-```
-5. A pop up window will show a classifed live video. 
-
-Please note that since we have limited number of node with GPU support `qlogin` is not allowed to direct you to login to these server you will be directed to the availabel computation nodes in the cluster with CPU support only. 
-
-## Run Non-interactive Script 
-Before you run the script you need to add permission access to the project files using `chmod` command.   
-```
-chmod +rwx *
-```
-To run the script you will use `qsub`, you can run the task on CPU or gpu computation node as follwoing:
-1. For CPU nodes use `yolo_subCPU.sh` file 
-```
- qsub ./yolo_subCPU.sh
-```
-
-2. For GPU nodes use `yolo_subGPU.sh` file with option -q to specify only gpu queue (g.q) submission.
-```
-qsub -q g.q ./yolo_subGPU.sh
 ### Usage
 Use --help to see usage of yolo_video.py:
-```
+
 ```
 usage: yolo_video.py [-h] [--model MODEL] [--anchors ANCHORS]
                      [--classes CLASSES] [--gpu_num GPU_NUM] [--image]
@@ -195,8 +107,6 @@ If you want to use original pretrained weights for YOLOv3:
     2. rename it as darknet53.weights
     3. `python convert.py -w darknet53.cfg darknet53.weights model_data/darknet53_weights.h5`
     4. use model_data/darknet53_weights.h5 in train.py
-
----
 
 ## Some issues to know
 
