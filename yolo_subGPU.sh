@@ -27,6 +27,6 @@ conda activate /speed-scratch/$USER/YOLO
 #python yolo_video.py --model model_data/yolo.h5 --classes model_data/coco_classes.txt --image  --gpu_num 2
 
 # Video example 
-python yolo_video.py --input video/v1.avi --output video/002.avi --gpu_num 1
+python yolo_video.py --input video/v1.avi --output video/002.avi --gpu_num 2
 
 conda deactivate

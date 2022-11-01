@@ -60,6 +60,8 @@ class YOLO(object):
         return np.array(anchors).reshape(-1, 2)
 
     def generate(self):
+        print('start init....')
+        os.environ['CUDA_VISIBLE_DEVICES'] = "0,1"
         model_path = os.path.expanduser(self.model_path)
         assert model_path.endswith('.h5'), 'Keras model or weights must be a .h5 file.'
 
