@@ -15,6 +15,15 @@ master's thesis:
 * [Haotao Lai](https://github.com/laihaotao), [*An OpenISS Framework Specialization for Person Re-identification*](https://spectrum.library.concordia.ca/985788/), Master's thesis, August 2019, Concordia University, Montreal
 
 ---
+## Environment 
+ Images and videos can be from any source, but we provided you with a sample of video and images in folders video and image. 
+ This demo can be run in an interactive and non-interactive way for both image and video default is non-interactive. You can enable interactive by passing --interactive parameters. 
+ 1) For image you provide the server with image path/name and return the classes of images.
+ 2) For video you will provide video path/name in the script argument. The output for interactive mode is a live video that dispaly classified object in each video frame. The new classified video will be stored in your video folder for both interactive and non-interactive modes.  
+
+The video sample is from youtube channel [Watched Walker](https://www.youtube.com/watch?v=DRNivy7rkTg).
+
+Images are from [YAD2K](https://github.com/allanzelener/YAD2K/tree/master/images) repostry project. 
 
 ## Quick Start
 
@@ -29,14 +38,28 @@ python yolo_video.py [OPTIONS...] --image, for image detection mode, OR
 python yolo_video.py [video_path] [output_path (optional)]
 ```
 
+For image run follwing command and the program will ask you about the image path and name:
+```
+python yolo_video.py --model model_data/yolo.h5 --classes model_data/coco_classes.txt --image 
+```
+For video non-interactive default 
+```
+python yolo_video.py --input video/v1.avi --output vido/001.avi 
+```
+For video interactive  
+```
+python yolo_video.py --input video/v1.avi --output vido/001.avi  --interactive
+```
+
 For Tiny YOLOv3, just do in a similar way, just specify model path and anchor path with `--model model_file` and `--anchors anchor_file`.
 
 ### Usage
 Use --help to see usage of yolo_video.py:
+
 ```
 usage: yolo_video.py [-h] [--model MODEL] [--anchors ANCHORS]
                      [--classes CLASSES] [--gpu_num GPU_NUM] [--image]
-                     [--input] [--output]
+                     [--input] [--output] [--interactive]
 
 positional arguments:
   --input        Video input path
@@ -51,6 +74,7 @@ optional arguments:
                      model_data/coco_classes.txt
   --gpu_num GPU_NUM  Number of GPU to use, default 1
   --image            Image detection mode, will ignore all positional arguments
+  --interactive      To show live video classification 
 ```
 ---
 
@@ -84,14 +108,12 @@ If you want to use original pretrained weights for YOLOv3:
     3. `python convert.py -w darknet53.cfg darknet53.weights model_data/darknet53_weights.h5`
     4. use model_data/darknet53_weights.h5 in train.py
 
----
-
 ## Some issues to know
 
 1. The test environment is
     - Python 3.5.2
     - Keras 2.1.5
-    - tensorflow 1.6.0
+    - tensorflow-gpu 1.10.0
 
 2. Default anchors are used. If you use your own anchors, probably some changes are needed.
 
